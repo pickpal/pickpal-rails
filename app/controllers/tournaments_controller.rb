@@ -5,6 +5,7 @@ class TournamentsController < ApplicationController
 
   def show
     @tournament = Tournament.find(params[:id])
-    @sub_tournaments = @tournament.descendants.includes(fights: :fighters)
+    @sub_tournaments = @tournament.descendants.includes(fights: [:fighters, :match_competitors], matches: [])
+    @picks = current_user.picks.where(match: @sub_tournaments.flat_map{ |t| t.matches.ids }.uniq)
   end
 end

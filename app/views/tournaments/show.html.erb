@@ -2,16 +2,36 @@
 
 <% @sub_tournaments.each do |tournament| %>
   <h2><%= tournament %></h2>
-  <table>
+  <div>
     <% tournament.fights.each do |fight| %>
-      <%#= form_tag picks_path() do |f| %>
-        <tr>
-          <% fight.fighters.each do |fighter| %>
-            <td><%#= f.check_box :match_competitor_id, 'a' %></td>
-            <td><%= fighter %></td>
-          <% end %>
-        </tr>
-      <%# end %>
+      <%= form_for (@picks.find{|pick| pick.match_id == fight.id} || Pick.new) do |f| %>
+        <%= f.hidden_field :match_id, value: fight.id %>
+        <table>
+          <tr class="fight">
+            <td >
+              <label class="fighter">
+                <%= f.radio_button :match_competitor_id, fight.match_competitors.first.id %>
+                <%= fight.fighters.first %>
+              </label>
+            </td>
+            <td >
+              <label class="vs">
+                <%= f.radio_button :match_competitor_id, false %> v
+              </label>
+            </td>
+            <td >
+              <label class="fighter">
+                <%= fight.fighters.last %>
+                <%= f.radio_button :match_competitor_id, fight.match_competitors.last.id %>
+              </label>
+            </td>
+            <td>
+              <%= f.submit %>
+            </td>
+          </tr>
+        </table>
+      <% end %>
+
     <% end %>
-  </table>
+  </div>
 <% end %>

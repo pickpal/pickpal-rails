@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   resources :tournaments
   resources :fighters
+  resources :picks
 
   root to: 'static#home'
 end
