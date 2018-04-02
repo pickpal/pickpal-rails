@@ -13,3 +13,41 @@
  *= require_tree .
  *= require_self
  */
+
+body {
+  font-family: -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      Helvetica,
+      Arial,
+      sans-serif,
+      "Apple Color Emoji",
+      "Segoe UI Emoji",
+      "Segoe UI Symbol";
+  background: #FCFCFC;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+header {
+  overflow: hidden;
+  padding: 20px;
+}
+
+#main {
+  padding: 0 20px 20px;
+}
+
+#pickpal-logo {
+  float: left;
+  font-weight: bold;
+}
+header nav {
+  float: right;
+  text-align: right;
+}

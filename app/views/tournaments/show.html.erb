@@ -1,0 +1,14 @@
+<h1><%= @tournament %></h1>
+
+<% @tournament.children.each do |tournament| %>
+  <h2><%= tournament %></h2>
+  <table>
+    <% tournament.fights.each do |fight| %>
+      <tr>
+        <% fight.fighters.each do |fighter| %>
+          <td><%= link_to fighter, fighter %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
