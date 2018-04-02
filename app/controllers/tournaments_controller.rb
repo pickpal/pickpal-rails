@@ -4,6 +4,7 @@ class TournamentsController < ApplicationController
   end
 
   def show
-    @tournament = Tournament.includes(fights: :fighters).find(params[:id])
+    @tournament = Tournament.find(params[:id])
+    @sub_tournaments = @tournament.descendants.includes(fights: :fighters)
   end
 end

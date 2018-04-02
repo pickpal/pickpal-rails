@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180402131959) do
+ActiveRecord::Schema.define(version: 20180402202235) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,16 @@ ActiveRecord::Schema.define(version: 20180402131959) do
     t.index ["tournament_id", "ordinal"], name: "index_matches_on_tournament_id_and_ordinal"
   end
 
+  create_table "picks", force: :cascade do |t|
+    t.bigint "picker_id", null: false
+    t.bigint "match_id", null: false
+    t.bigint "match_competitor_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["match_competitor_id"], name: "index_picks_on_match_competitor_id"
+    t.index ["picker_id", "match_id"], name: "index_picks_on_picker_id_and_match_id", unique: true
+  end
+
   create_table "reddit_users", force: :cascade do |t|
     t.string "username"
     t.datetime "created_at", null: false
@@ -71,4 +81,7 @@ ActiveRecord::Schema.define(version: 20180402131959) do
   add_foreign_key "match_competitors", "competitors"
   add_foreign_key "match_competitors", "matches"
   add_foreign_key "matches", "tournaments"
+  add_foreign_key "picks", "match_competitors"
+  add_foreign_key "picks", "matches"
+  add_foreign_key "picks", "reddit_users", column: "picker_id"
 end

@@ -34,6 +34,11 @@ a {
   text-decoration: none;
 }
 
+header, #main {
+  margin: 0 auto;
+  max-width: 800px;
+}
+
 header {
   overflow: hidden;
   padding: 20px;
