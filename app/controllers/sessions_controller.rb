@@ -13,6 +13,10 @@ class SessionsController < ApplicationController
     redirect_to root_url, notice: "Logged out!"
   end
 
+  def failure
+    redirect_to root_url, alert: "authentication failed"
+  end
+
   private
 
     def auth_hash
