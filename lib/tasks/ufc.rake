@@ -3,13 +3,12 @@ require 'csv'
 namespace :ufc do
   desc "imports ufc data"
   task import: :environment do
-    puts 'import'
+    Tournament.destroy_all
+    ufc = UfcNumberedEvent.create(name: 'UFC 223')
     CSV.read('db/data/ufc223.csv', headers: true).each do |line|
-      fighter1 = line['fighter1']&.strip
-      fighter2 = line['fighter2']&.strip
-      type = line['type']&.strip
       if line['fighter2']
-        p [fighter1, fighter2, type]
+        card = UfcNumberedEvent.find_or_create_by(name: line['type'].strip, parent: ufc)
+        card.fights.make(line['fighter1'].strip, line['fighter2'].strip)
       end
     end
   end
